@@ -94,6 +94,7 @@ int buzzer = 8;
 int melody[] = {
 
 
+
   NOTE_D5,-4, NOTE_E5,-4, NOTE_A4,4, //1
   NOTE_E5,-4, NOTE_FS5,-4, NOTE_A5,16, NOTE_G5,16, NOTE_FS5,8,
   NOTE_D5,-4, NOTE_E5,-4, NOTE_A4,2,
@@ -168,7 +169,7 @@ int wholenote = (60000 * 4) / tempo;
 int divider = 0, noteDuration = 0;
 
 void setup() {
-  // iterate over the notes of the melody.
+  // iterate over the notes of the melody.FFFFFFFFFF
   // Remember, the array is twice the number of notes (notes + durations)
    Serial.begin(9600);
   motorSpeed(M1,100);
