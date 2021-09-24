@@ -1,4 +1,4 @@
-#define NOTE_B0  31
+#define NOTE_B0  30
 #define NOTE_C1  33
 #define NOTE_CS1 35
 #define NOTE_D1  37
