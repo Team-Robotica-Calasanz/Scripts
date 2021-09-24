@@ -169,7 +169,7 @@ int wholenote = (60000 * 4) / tempo;
 int divider = 0, noteDuration = 0;
 
 void setup() {
-  // iterate over the notes of the melody.FFFFFFFFFF
+  // iterate over the notes of the melody.FFFFFFFFFF xddddddddddd
   // Remember, the array is twice the number of notes (notes + durations)
    Serial.begin(9600);
   motorSpeed(M1,100);
