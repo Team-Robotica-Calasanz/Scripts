@@ -1,6 +1,6 @@
 int Der = 900;
 int Izq = 900;
-
+//hola
 //Codigo para que gire hacia la izquierda en interseccion
 void giroIzquierda(){
     goForward(M1, M2);
