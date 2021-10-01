@@ -13,7 +13,7 @@ void giroIzq(){
     }
 }
 
-//Función para que gire hacia la izquierda en interseccion
+//Función para que gire hacia la derecha en interseccion
 void giroDer(){
   goForward(M1, M2);
   delay(200);
@@ -34,8 +34,6 @@ void lecturas(){
   
   delay(50);
 }
- 
-
 
 void setup () {
   Serial.begin(9600);
