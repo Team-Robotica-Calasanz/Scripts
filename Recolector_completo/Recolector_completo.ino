@@ -1,7 +1,6 @@
 //Punto intermedio entre negro y blanco. if ultrasoundRead(Sensor) < sen = negro    if ultrasoundRead(Sensor) > sen = blanco
 int sen = 900;
 int tot = 0;
-int girDer_count = 0;
 
 void seguidor(){
   //Si la linea esta en el centro de los dos sensores
@@ -29,7 +28,7 @@ void recolector(){
   motorOff(M4);
   //Girar hacia la izquierda para sacar objeto
   turnLeft(M3, M1);
-  delay(650);
+  delay(550);
 
   //Avanzar para sacar objeto
   goForward(M1, M3);
@@ -75,7 +74,7 @@ void giroDer(){
   goForward(M1, M3);
   delay(100);
   turnRight(M3, M1);
-  delay(300);
+  delay(400);
   while (sensorRead(J2) < sen){
   turnRight(M3, M1);
   }
@@ -83,6 +82,7 @@ void giroDer(){
 
 void final_totem(){
 
+  int girDer_count = 0;
   //Para hacer dos giros a la derecha
   if (girDer_count < 2){
     giroDer();
@@ -120,9 +120,9 @@ void setup () {
   Serial.begin(9600);
 
   //Motor derecho
-  motorSpeed(M1,70);
+  motorSpeed(M1,80);
   //Motor izquierdo
-  motorSpeed(M3,70);
+  motorSpeed(M3,80);
   motorOn(M4, FORWARD);
   delay(350);
   motorOn(M4, REVERSE);
@@ -136,7 +136,7 @@ void loop () {
   seguidor();
 
   //Si hay un tótem adelante
-  if (ultrasoundRead(J3) < 14){
+  if (ultrasoundRead(J3) < 13){
     recolector();
     tot++;
   }
@@ -148,13 +148,12 @@ void loop () {
   }
 
   //Ruta a seguir habiendo recogido el primer tótem
-  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot < 4){
+  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot > 0 && tot < 4){
     goForward(M1, M3);
   }
 
   //Ruta a seguir luego de recoger el tercer tótem
   else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot == 4){
-    goForward(M1, M3);
     final_totem();
   }  
 }
