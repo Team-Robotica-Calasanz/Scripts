@@ -1,6 +1,7 @@
 //Punto intermedio entre negro y blanco. if ultrasoundRead(Sensor) < sen = negro    if ultrasoundRead(Sensor) > sen = blanco
 int sen = 900;
 int tot = 0;
+int intersec = 0;
 
 void seguidor(){
   //Si la linea esta en el centro de los dos sensores
@@ -24,11 +25,11 @@ void recolector(){
   motorsOff(M1, M3);
   //Cerrar pinza
   motorOn(M4, FORWARD);
-  delay(400);
+  delay(350);
   motorOff(M4);
   //Girar hacia la izquierda para sacar objeto
-  turnLeft(M3, M1);
-  delay(550);
+  turnRight(M3, M1);
+  delay(450);
 
   //Avanzar para sacar objeto
   goForward(M1, M3);
@@ -43,9 +44,9 @@ void recolector(){
   motorsOff(M1, M3);
   delay(200);
 
-  //Cerrar pinza
+  //Abrir la pinza de nuevo
   motorOn(M4, REVERSE);
-  delay(350);
+  delay(700);
   motorOff(M4);
 
   //Retroceder para volver a ruta
@@ -53,8 +54,8 @@ void recolector(){
   delay(400);
 
   //Encontrar ruta de nuevo
-  while (sensorRead(J2) < sen){
-    turnRight(M3, M1);
+  while (sensorRead(J1) < sen){
+    turnLeft(M3, M1);
   }
 }
 
@@ -81,28 +82,18 @@ void giroDer(){
 }
 
 void final_totem(){
-
-  int girDer_count = 0;
-  //Para hacer dos giros a la derecha
-  if (girDer_count < 2){
-    giroDer();
-    girDer_count++;
+  while (ultrasoundRead(J3) > 17){
+    seguidor();
   }
-
-  //Luego de hacer los dos giros a la derecha
-  else{
-    while (ultrasoundRead(J4) < 14){
-    goForward(M1, M3);
-    }
-    motorsOff(M1, M3);
-    //Cerrar pinza
-    motorOn(M4, FORWARD);
-    delay(400);
-    motorOff(M4);
-    //Llevar totem a la zona propia
-    goReverse(M1, M3);
-    delay(5000);
-  }
+  goForward(M1, M3);
+  delay(300);
+  motorsOff(M1, M3);
+  motorOn(M4, FORWARD);
+  delay(350);
+  motorOff(M4);
+  goReverse(M1, M3);
+  delay(5000);
+  
 }
 
 //Para imprimir lecturas del sensor infrarrojo
@@ -143,17 +134,29 @@ void loop () {
 
   //Para coger a la izquierda desde el inicio
   else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot == 0){
-    giroIzq();
+    giroDer();
     tot++;
   }
 
   //Ruta a seguir habiendo recogido el primer tótem
-  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot > 0 && tot < 4){
+  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot > 0 && tot < 3){
     goForward(M1, M3);
   }
 
   //Ruta a seguir luego de recoger el tercer tótem
+  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot == 3){
+    giroIzq();
+    tot++;
+  }
   else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot == 4){
+    goForward(M1, M3);
+  }
+  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot == 5){
+    giroDer();
+    tot++;
+  }
+  else if (sensorRead(J1) > sen && sensorRead(J2) > sen && tot == 6){
+    giroIzq();
     final_totem();
-  }  
+  }
 }
