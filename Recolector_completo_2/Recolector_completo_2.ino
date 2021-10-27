@@ -94,7 +94,7 @@ void recolector3(){
 
   //Avanzar para sacar objeto
   goForward(M1, M3);
-  delay(1450);
+  delay(1550);
   motorsOff(M1, M3);
   delay(200);
 
@@ -139,23 +139,14 @@ void giroDer(){
 
 void final_totem(){
   motorsOff(M1, M3);
-  delay(100);
-  goReverse(M1, M3);
-  delay(250);
   turnLeft(M3, M1);
-  delay(450);
-  while (ultrasoundRead(J3) < 16)
-  {
-    turnLeft(M3, M1);
-  }
-  turnLeft(M3, M1);
-  delay(150);
+  delay(650);
   goForward(M1, M3);
-  delay(300);
+  delay(400);
   motorsOff(M1, M3);
   //Cerrar pinza
   motorOn(M4, FORWARD);
-  delay(350);
+  delay(400);
   motorOff(M4);
   motorSpeed(M1, 80);
   motorSpeed(M3, 80);
